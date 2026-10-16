@@ -21,12 +21,8 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outlin
 .intro { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 20px max(4%, calc((100vw - var(--content-width)) / 2)) 19px; background: var(--teal); color: var(--hero-ink); }
 .intro::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: repeating-linear-gradient(90deg, var(--accent) 0 12px, var(--paper) 12px 24px); }
 .eyebrow { font-size: 8px; font-weight: 600; letter-spacing: .13em; line-height: 1.6; }
-.intro .eyebrow { font-size: 8px; letter-spacing: .18em; margin: 0 0 8px; }
-.intro .eyebrow > span { margin-inline: 9px; color: var(--yellow); }
-h1 { margin: 0; font-family: var(--display-font); font-size: clamp(23px, 3.2vw, 35px); font-weight: 500; letter-spacing: .02em; line-height: 1.5; }
-h1 em { font-style: normal; color: var(--yellow); }
-.intro-aside { display: flex; align-items: center; gap: 28px; }
-.intro-description { font-size: 10px; line-height: 2; letter-spacing: .06em; margin: 0; }
+h1 { margin: 0; font-size: 25px; font-weight: 700; letter-spacing: .02em; line-height: 1.5; }
+.intro-description { font-size: 12px; line-height: 1.9; letter-spacing: .04em; margin: 5px 0 0; }
 .intro-mark { position: relative; display: grid; place-items: center; width: 47px; height: 43px; flex-shrink: 0; border: 1px solid var(--yellow); border-radius: 50% 50% 50% 3px; color: var(--yellow); transform: rotate(-8deg); }
 .intro-mark::after { content: ""; position: absolute; width: 38px; height: 36px; border: 1px solid var(--hero-ink); border-radius: 50% 50% 3px 50%; left: -13px; bottom: -9px; opacity: .45; }
 .intro-mark > span { font-size: 26px; line-height: 1; }
@@ -118,11 +114,8 @@ dialog::backdrop { background: #092d38a6; backdrop-filter: blur(4px); }
   .wordmark { font-size: 14px; gap: 8px; }
   .wordmark small { font-size: 5.5px; }
   .intro { gap: 16px; padding-block: 18px 16px; }
-  .intro .eyebrow { font-size: 7px; margin-bottom: 6px; }
-  .intro .eyebrow > span { margin-inline: 5px; }
-  h1 { font-size: clamp(21px, 5.5vw, 32px); }
-  .intro-description { display: none; }
-  .intro-aside { padding-left: 9px; }
+  h1 { font-size: 22px; }
+  .intro-description { font-size: 11px; margin-top: 4px; }
   .intro-mark { width: 33px; height: 31px; }
   .intro-mark::after { width: 28px; height: 25px; left: -9px; bottom: -6px; }
   .intro-mark > span { font-size: 21px; }
