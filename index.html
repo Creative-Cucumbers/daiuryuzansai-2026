@@ -29,6 +29,7 @@
       <section class="works section-wrap" id="works" aria-labelledby="works-title">
         <h2 id="works-title" class="sr-only">アプリ一覧</h2>
         <p class="sample-notice"><span>ただいま展示準備中</span> 先頭のカードからアプリを試せます。ほかの19件はレイアウト確認用のサンプル作品です。</p>
+        <p class="api-notice">AIの利用制限（APIの上限）により、一時的にお返事できないことがあります。そのときはごめんなさい。時間をおいて、また試してみてください。</p>
         <div class="gallery-toolbar"><div class="filters" role="group" aria-label="作品のカテゴリ"><button class="filter is-active" type="button" data-filter="all" aria-pressed="true">すべて</button><button class="filter" type="button" data-filter="相談" aria-pressed="false">相談する</button><button class="filter" type="button" data-filter="発想" aria-pressed="false">発想する</button><button class="filter" type="button" data-filter="物語" aria-pressed="false">物語に入る</button></div><p id="work-count" class="work-count" role="status" aria-live="polite"></p></div>
         <div id="works-grid" class="works-grid"></div>
         <noscript><p>作品一覧の表示には JavaScript を有効にしてください。展示概要はこのページ下部でご覧いただけます。</p></noscript>
@@ -39,6 +40,6 @@
 
     <footer class="site-footer"><a class="footer-title" href="#top">AIチャットアプリ <span aria-hidden="true">:)</span></a><p>大瓜生山祭2026 / STUDENT WORKS</p><a href="https://www.kyoto-art.ac.jp/kuafes/2026/" target="_blank" rel="noopener noreferrer">学園祭公式サイト ↗<span class="sr-only">（新しいタブで開く）</span></a></footer>
 
-    <dialog id="work-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span class="eyebrow">BEHIND THE CONVERSATION</span><button type="button" class="dialog-close" aria-label="作品紹介を閉じる">✕</button></div><div id="dialog-art" class="dialog-art" aria-hidden="true"></div><div class="dialog-content"><p id="dialog-category" class="eyebrow"></p><h2 id="dialog-title"></h2><p id="dialog-description"></p><div class="prompt-box"><span>こんなひとことから</span><p id="dialog-prompt"></p></div><p id="dialog-credit" class="dialog-credit"></p><a id="dialog-link" class="pill-link" target="_blank" rel="noopener noreferrer">チャットボットと話す ↗<span class="sr-only">（新しいタブで開く）</span></a><p id="dialog-unavailable" class="dialog-unavailable"></p></div></dialog>
+    <dialog id="work-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span class="eyebrow">BEHIND THE CONVERSATION</span><button type="button" class="dialog-close" aria-label="作品紹介を閉じる">✕</button></div><div id="dialog-art" class="dialog-art" aria-hidden="true"></div><div class="dialog-content"><p id="dialog-category" class="eyebrow"></p><h2 id="dialog-title"></h2><p id="dialog-description"></p><div class="prompt-box"><span>こんなひとことから</span><p id="dialog-prompt"></p></div><p id="dialog-credit" class="dialog-credit"></p><p id="dialog-api-notice" class="api-notice" hidden>AIの利用制限（APIの上限）により、一時的にお返事できないことがあります。そのときはごめんなさい。時間をおいて、また試してみてください。</p><a id="dialog-link" class="pill-link" aria-describedby="dialog-api-notice" target="_blank" rel="noopener noreferrer">チャットボットと話す ↗<span class="sr-only">（新しいタブで開く）</span></a><p id="dialog-unavailable" class="dialog-unavailable"></p></div></dialog>
   </body>
 </html>

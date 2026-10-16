@@ -80,6 +80,7 @@ function openWork(work, trigger) {
   link.hidden = work.sample || !url;
   link.removeAttribute("href");
   if (!link.hidden) link.href = url;
+  document.querySelector("#dialog-api-notice").hidden = link.hidden;
   unavailable.hidden = !link.hidden;
   unavailable.textContent = work.sample
     ? "展示準備中のサンプルです。実際のチャットボットには接続しません。"
