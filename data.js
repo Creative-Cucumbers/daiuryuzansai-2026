@@ -2,17 +2,17 @@
 // Set sample: false and add a public HTTPS url to enable the chatbot link.
 window.EXHIBITION_WORKS = [
   {
-    id: "sample-01",
-    title: "きょうの、よりみち。",
+    id: "work-01",
+    title: "AIチャットアプリ（試用版）",
     category: "相談",
-    tagline: "いつもの一日に、小さな寄り道を。",
-    description: "今の気分をことばにすると、いつもと少し違う過ごし方が見えてくる。日常の小さな選択を、一緒に考えるチャットボットのサンプルです。",
-    prompt: "今日はなんだか、いつもと違うことがしたい。",
+    tagline: "まずは、気軽に話しかけてみて。",
+    description: "リンクの動作を確認するために試用公開しているAIチャットアプリです。下の「チャットボットと話す」からアプリを開けます。作品名・紹介文は掲載準備中です。",
+    prompt: "こんにちは。",
     author: "制作者情報は掲載準備中",
     visual: "lime",
     symbol: "↗",
-    url: "",
-    sample: true,
+    url: "https://ai.studio/apps/aa7f2fc2-f7ac-4a29-b53b-f0a31c6a7dcd",
+    sample: false,
   },
   {
     id: "sample-02",
