@@ -1,0 +1,30 @@
+/* Design tokens: change this file to reskin the site without editing work data.
+   Inspired by the red/cream stripes, teal, yellow and bold shadows of KUA FES 2026. */
+:root {
+  --paper: #fff4e9;
+  --ink: #14282c;
+  --muted: #586669;
+  --line: #d3d4c7;
+  --accent: #ed4546;
+  --teal: #087f88;
+  --yellow: #ffe59b;
+  --shadow: #092d38;
+  --hero-ink: #fff4e9;
+  --font: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+  --content-width: 1160px;
+  --card-radius: 8px;
+  --card-gap: 15px;
+  --card-art-height: 68px;
+  --art-lime-bg: #d9ead0;
+  --art-lime-character: #a6d7a3;
+  --art-lilac-bg: #e7dbea;
+  --art-lilac-character: #c4aad9;
+  --art-orange-bg: #f7d8be;
+  --art-orange-character: #f5a673;
+  --art-pink-bg: #f4d2d7;
+  --art-pink-character: #ea9db2;
+  --art-blue-bg: #cce6eb;
+  --art-blue-character: #88c2d0;
+  --art-yellow-bg: #f5eac7;
+  --art-yellow-character: #f1d878;
+}
