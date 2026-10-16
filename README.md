@@ -11,7 +11,7 @@ index.html            ページ本文・展示概要
 theme.css             配色・書体・カードサイズなどのデザイントークン
 styles.css            レイアウト・レスポンシブ対応
 data.js               作品データ（主な更新箇所）
-script.js             カテゴリ絞り込み・作品紹介ダイアログ
+script.js             作品カード・作品紹介ダイアログ
 assets/favicon.svg    サイトアイコン
 .nojekyll             Jekyll の処理を無効化
 AGENTS.md             コントリビューター向けガイド
@@ -52,6 +52,7 @@ python3 -m http.server 8000 --bind 127.0.0.1
   author: "表示する制作者名",
   visual: "lime",                    // lime / lilac / orange / pink / blue / yellow
   symbol: "✳",
+  screenshot: "./assets/minute-timer.png", // 任意。未設定ならカラフルなキャラクターを表示
   url: "https://example.com/chatbot", // 実際に公開済みの HTTPS URL
   sample: false,
 }
@@ -59,7 +60,7 @@ python3 -m http.server 8000 --bind 127.0.0.1
 
 `sample: true` または URL 未設定の場合、チャットボットへのリンクは表示されません。作品情報はテキストとして描画されます。公開してよい制作者名と URL を登録してください。
 
-全サンプルを差し替えたら、`index.html` の `.sample-notice` を更新・削除してください。授業名・展示タイトルは `index.html`、ブラウザのタイトル・説明も同じファイルで編集します。カテゴリを増やす場合はフィルターボタンも追加してください。
+全サンプルを差し替えたら、`index.html` の `.sample-notice` を更新・削除してください。授業名・展示タイトルは `index.html`、ブラウザのタイトル・説明も同じファイルで編集します。カテゴリはカードと作品紹介に表示するラベルです。絞り込みは行いません。
 
 ## GitHub Pages で公開
 
@@ -75,7 +76,7 @@ python3 -m http.server 8000 --bind 127.0.0.1
 自動テスト、リンター、カバレッジ基準は未設定です。更新時は以下を確認します。
 
 - PC・スマートフォンの幅でレイアウトに横スクロールがない。
-- 各カテゴリで表示件数と作品が切り替わる。
+- 登録した全作品が表示され、表示件数が一致する。
 - 作品紹介を開閉でき、`Escape` で閉じると元のボタンにフォーカスが戻る。
 - キーボードで操作でき、外部リンクが新しいタブで開く。
 - 実作品のリンク先が正しく、サンプルが残っていない。

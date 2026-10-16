@@ -25,13 +25,24 @@ function makeArtwork(work) {
   character.append(makeElement("span", "character-symbol", work.symbol || "✳"));
   character.append(makeElement("span", "character-eyes"));
   art.append(character, makeElement("span", "art-label", "A CONVERSATION PIECE"));
+  if (work.screenshot) {
+    const screenshot = makeElement("img", "work-screenshot");
+    screenshot.alt = "";
+    screenshot.decoding = "async";
+    screenshot.addEventListener("error", () => {
+      art.classList.remove("has-screenshot");
+      screenshot.remove();
+    });
+    art.classList.add("has-screenshot");
+    screenshot.src = work.screenshot;
+    art.append(screenshot);
+  }
   return art;
 }
 
-function renderWorks(filter = "all") {
-  const shown = works.filter((work) => filter === "all" || work.category === filter);
+function renderWorks() {
   const fragment = document.createDocumentFragment();
-  shown.forEach((work) => {
+  works.forEach((work) => {
     const article = makeElement("article", "work-card");
     const button = makeElement("button", "work-open");
     button.type = "button";
@@ -53,8 +64,8 @@ function renderWorks(filter = "all") {
     fragment.append(article);
   });
   grid.replaceChildren(fragment);
-  if (!shown.length) grid.append(makeElement("p", "empty-state", "このカテゴリの作品は準備中です。"));
-  count.textContent = `${String(shown.length).padStart(2, "0")} WORKS`;
+  if (!works.length) grid.append(makeElement("p", "empty-state", "作品は準備中です。"));
+  count.textContent = `${String(works.length).padStart(2, "0")} WORKS`;
 }
 
 function publicUrl(value) {
@@ -88,17 +99,6 @@ function openWork(work, trigger) {
   dialog.showModal();
   document.body.classList.add("dialog-is-open");
 }
-
-document.querySelectorAll(".filter").forEach((button) => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".filter").forEach((filter) => {
-      const active = filter === button;
-      filter.classList.toggle("is-active", active);
-      filter.setAttribute("aria-pressed", String(active));
-    });
-    renderWorks(button.dataset.filter);
-  });
-});
 
 document.querySelector(".dialog-close").addEventListener("click", () => dialog.close());
 dialog.addEventListener("click", (event) => {
