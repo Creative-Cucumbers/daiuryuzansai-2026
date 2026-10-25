@@ -4,12 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#087f88">
-    <meta name="description" content="学生がAIでつくったチャットアプリを紹介します。気になるアプリを試してみてね。大瓜生山祭2026の学生作品展示。">
+    <meta name="description" content="学生がAIでつくったチャットアプリを紹介します。気になるアプリを試してみてください！大瓜生山祭2026の学生作品展示。">
     <title>AIチャットアプリ｜大瓜生山祭2026</title>
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="./theme.css">
     <link rel="stylesheet" href="./styles.css">
-    <script src="./data.js" defer></script>
     <script src="./script.js" defer></script>
   </head>
   <body>
@@ -19,7 +18,7 @@
         <span class="logo-symbol" aria-hidden="true">:)</span>
         <div>
           <h1>AIチャットアプリ</h1>
-          <p class="header-subtitle">学生がAIでつくりました。気になるアプリを試してみてね。</p>
+          <p class="header-subtitle">学生がAIでつくりました。気になるアプリを試してみてください！</p>
         </div>
       </div>
       <p class="header-event">大瓜生山祭 2026</p>
@@ -28,8 +27,10 @@
     <main>
       <section class="works section-wrap" id="works" aria-labelledby="works-title">
         <h2 id="works-title" class="sr-only">アプリ一覧</h2>
-        <p class="sample-notice"><span>ただいま展示準備中</span> 先頭のカードからアプリを試せます。ほかの19件はレイアウト確認用のサンプル作品です。</p>
-        <p class="api-notice">AIの利用制限（APIの上限）により、一時的にお返事できないことがあります。そのときはごめんなさい。時間をおくか、ほかのチャットアプリを試してみてください。</p>
+        <div class="exhibition-notices">
+          <p class="api-notice"><strong class="notice-heading">AIの利用制限について</strong>AIの利用制限（APIの上限）により、一時的にお返事できないことがあります。そのときはごめんなさい。時間をおくか、ほかのチャットアプリを試してみてください。</p>
+          <p class="launch-notice"><strong class="notice-heading">アプリを開くときに</strong>「This app is from another developer」という確認画面が出たら、<strong>「Continue to the app」</strong>を押して進んでください。</p>
+        </div>
         <p id="work-count" class="work-count"></p>
         <div id="works-grid" class="works-grid"></div>
         <noscript><p>作品一覧の表示には JavaScript を有効にしてください。展示概要はこのページ下部でご覧いただけます。</p></noscript>
@@ -40,6 +41,6 @@
 
     <footer class="site-footer"><a class="footer-title" href="#top">AIチャットアプリ <span aria-hidden="true">:)</span></a><p>大瓜生山祭2026 / STUDENT WORKS</p><a href="https://www.kyoto-art.ac.jp/kuafes/2026/" target="_blank" rel="noopener noreferrer">学園祭公式サイト ↗<span class="sr-only">（新しいタブで開く）</span></a></footer>
 
-    <dialog id="work-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span class="eyebrow">BEHIND THE CONVERSATION</span><button type="button" class="dialog-close" aria-label="作品紹介を閉じる">✕</button></div><div id="dialog-art" class="dialog-art" aria-hidden="true"></div><div class="dialog-content"><p id="dialog-category" class="eyebrow"></p><h2 id="dialog-title"></h2><p id="dialog-description"></p><div class="prompt-box"><span>こんなところから試してみよう</span><p id="dialog-prompt"></p></div><p id="dialog-credit" class="dialog-credit"></p><p id="dialog-api-notice" class="api-notice" hidden>AIの利用制限（APIの上限）により、一時的にお返事できないことがあります。そのときはごめんなさい。時間をおくか、ほかのチャットアプリを試してみてください。</p><a id="dialog-link" class="pill-link" aria-describedby="dialog-api-notice" target="_blank" rel="noopener noreferrer">アプリを開く ↗<span class="sr-only">（新しいタブで開く）</span></a><p id="dialog-unavailable" class="dialog-unavailable"></p></div></dialog>
+    <dialog id="work-dialog" aria-labelledby="dialog-title"><div class="dialog-top"><span class="eyebrow">BEHIND THE CONVERSATION</span><button type="button" class="dialog-close" aria-label="作品紹介を閉じる">✕</button></div><div id="dialog-art" class="dialog-art" aria-hidden="true"></div><div class="dialog-content"><p id="dialog-category" class="eyebrow"></p><h2 id="dialog-title"></h2><p id="dialog-description"></p><div class="prompt-box"><span>こんなところから試してみよう</span><p id="dialog-prompt"></p></div><p id="dialog-credit" class="dialog-credit"></p><a id="dialog-link" class="pill-link" target="_blank" rel="noopener noreferrer">アプリを開く ↗<span class="sr-only">（新しいタブで開く）</span></a><p id="dialog-unavailable" class="dialog-unavailable"></p></div></dialog>
   </body>
 </html>

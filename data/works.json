@@ -1,0 +1,163 @@
+[
+  {
+    "id": "work-73b6522f572f",
+    "initials": "H.W.",
+    "title": "Stella星と心の占いチャットアプリ",
+    "description": "「Stella 星と心の占いチャットアプリ」は、占いや心理テスト、自由相談を通して、自分の気持ちを整理できるアプリです。悩みや不安を抱えたときに、少しでも心を軽くするヒントを見つけたり、気軽に占いを楽しんだりできる場を目指しました。",
+    "url": "https://remix-remix-stella-6700.ai.studio",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-73b6522f572f-40e2af25c8.png"
+  },
+  {
+    "id": "work-410d8fcbde93",
+    "initials": "N.T.",
+    "title": "ココロ文庫",
+    "description": "今の気持ちや心境に寄り添う本を紹介してくれるチャットアプリ。司書との会話や簡単な気分診断を通して、今の自分にぴったりな一冊と出会えます。本の紹介だけでなく、読書のおともや感想の記録も楽しめる、心をそっと癒やす私専用の小さな図書室です。",
+    "url": "https://aistudio.google.com/apps/c70f9e65-6bde-4d24-b4d3-a10b50a3629c?showAssistant=true&showPreview=true&fullscreenApplet=true",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-410d8fcbde93-1045957870.png"
+  },
+  {
+    "id": "work-27bc53e008cd",
+    "initials": "M.K.",
+    "title": "おしゃべりパレット",
+    "description": "小学生の「これってなんだろう？」に、やさしい言葉で答えるチャットアプリです。算数や理科などの教科、日常の疑問を気軽に質問できます。考えているときには博士のような口調になるのも特徴です。疑問を解くきっかけを、子どもたちに届けます。",
+    "url": "https://osyaberiparetto.ai.studio",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-27bc53e008cd-1f44139ccc.png"
+  },
+  {
+    "id": "work-4d8551283bd1",
+    "initials": "T.K.",
+    "title": "学びサポートAI マナビィ",
+    "description": "小学生から中学生まで、学習面で困ったときに相談できる学習サポートアプリです。まず自分で考え、分からないところをAIに質問すると、考え方や解き方を手助けしてくれます。学んだ後はチャレンジ問題に挑戦し、理解できたか確かめられます。AIの答えをそのまま使うのではなく、自分の言葉で説明して、わかったことを友達にも伝えてみましょう。",
+    "url": "https://study-manavi.ai.studio",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-4d8551283bd1-23217abb48.png"
+  },
+  {
+    "id": "work-a13b9fa9fed2",
+    "initials": "M.S.",
+    "title": "記憶の蒐集店",
+    "description": "ユーザーが語った思い出を、蒐集店の店主が不思議な骨董品へと変えるチャットアプリです。思い出に宿る感情から世界に一つだけの品物を生み出し、自分だけの図鑑にコレクションできます。何気ない日常や大切な経験を新たな形に残し、思い出の価値を再発見する体験を提供します。",
+    "url": "https://aistudio.google.com/apps/9a46b0f8-252a-49d2-bf2d-1df543da2b46?showAssistant=true&showPreview=true&fullscreenApplet=true",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-a13b9fa9fed2-f6bb1c80ff.png"
+  },
+  {
+    "id": "work-480119eeb794",
+    "initials": "I.M.",
+    "title": "推し活プランナー",
+    "description": "ライブやイベント遠征に挑むファンのための推し活支援AI。会場・季節・予算に合わせた持ち物や参戦服、タイムスケジュールをAIが提案。会話から持ち物リストを自動抽出するほか、画面全体を自担のメンバーカラーに染められるアルバム風UIや音声対話を搭載。登録不要・端末保存でプライバシーを守りながら、特別な一日の準備から思い出記録まで寄り添います。",
+    "url": "https://remix-studio-1183.ai.studio",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-480119eeb794-15842bb655.png"
+  },
+  {
+    "id": "work-657069fb7879",
+    "initials": "I.M.",
+    "title": "てつがくおばけ",
+    "description": "「てつがくおばけ」は、正解のない問いを通じて心をそっとほぐす対話型・思索手帖アプリです。愛らしいおばけからの素朴な問いかけに答えたり、日々の疑問を語りかけたりしながら、自分の感情や思考を深く見つめ直せます。",
+    "url": "https://aistudio.google.com/apps/b216de51-20eb-4a3d-affd-0b152192e0dc?showAssistant=true&showPreview=true&fullscreenApplet=true",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-657069fb7879-136c7ad7f4.png"
+  },
+  {
+    "id": "work-4d63eafb0708",
+    "initials": "H.N.",
+    "title": "MIMO（ミモ）— 無意識の採集",
+    "description": "心の中にある「まだ言葉になっていない感覚や記憶」を、静かな対話を通して拾い上げ、標本のように集めて可視化するアプリケーションです。\nアドバイスや悩みの解決を求める必要はありません。オチも結論も不要で、ふと思い出す光景や小さな違和感をただ置いていく場所です。",
+    "url": "https://aistudio.google.com/apps/4e891590-0ea9-4fe2-89c1-9e4b31da787b?showAssistant=true&showPreview=true&fullscreenApplet=true",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-4d63eafb0708-ee4e86318c.png"
+  },
+  {
+    "id": "work-65c419f24724",
+    "initials": "I.K.",
+    "title": "しるトーク",
+    "description": "日々多くの情報があふれる現代では、ニュースを知ることに難しさや面倒さを感じる人も少なくありません。このアプリは、普段ニュースに触れる機会が少ない人に向けた、AIと会話しながら情報を得られるニュースアプリです。気になる話題を気軽に質問でき、AIがわかりやすく要約してくれることで、ニュースをより身近なものにします。",
+    "url": "https://aistudio.google.com/apps/20416947-1461-4486-b4a0-90fcbf5e8785?showAssistant=true&showPreview=true&fullscreenApplet=true",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-65c419f24724-923ec8d48f.png"
+  },
+  {
+    "id": "work-d186bd1b09ae",
+    "initials": "K.S.",
+    "title": "猫になってしまったAIとのチャットアプリ",
+    "description": "猫ちゃんとの何気ないおしゃべりやふれあいを、楽しく記録し、いつでも振り返ることができるインタラクティブなコミュニケーションサービス。\nユーザーは4匹の個性豊かな猫ちゃんから好きな子を選び、メッセージを送ったり、なでなでしたりしながら交流を楽しめます。\n会話の記録は、単なるチャットログにとどまりません。演劇や小説の台本のように、会話としぐさを組み合わせたスクリプト形式で表示することで、猫ちゃんとのやりとりを物語のように読み返せます。また、発話比率や文字数、ターン数などの統計情報に加え、会話中の猫ちゃんの気分の変化も視覚化。ご機嫌な様子や甘えん坊な一面、うとうとする姿など、会話の中で生まれた小さな変化を振り返ることができます。\n過去の会話セッションは自由に切り替えられ、気に入った会話から、いつでもおしゃべりを再開できます。\nGoogleログインによるスムーズな利用導線を備え、ログイン後はチャット画面や会話履歴へアクセス可能。\n猫ちゃんと過ごす時間を、会話する楽しさから、思い出として読み返す楽しさへ。ふれあいの記録を通して、一匹一匹の個性や気分の移ろいを発見し、猫ちゃんとの関係をより深く楽しめる体験を目指します。",
+    "url": "https://remix-class.ai.studio",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-d186bd1b09ae-de74595bc8.png"
+  },
+  {
+    "id": "work-c09896f3c8e6",
+    "initials": "T.A.",
+    "title": "旅人ギルド",
+    "description": "現実の旅行計画をRPG感覚で楽しめるチャット型の「RPG旅行相談所」アプリです。ユーザーは冒険者となり、ギルド案内人に旅先のグルメや観光名所を相談できます。画面にはレベルや所持金、クエスト手帳なども表示され、ゲーム気分に没入しながら楽しく旅行計画を立てられるのが特徴です。",
+    "url": "https://remix-rpg-6673.ai.studio",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-c09896f3c8e6-254fd48cda.png"
+  },
+  {
+    "id": "work-b4207cf08185",
+    "initials": "A.S.",
+    "title": "KATACHI",
+    "description": "ものづくりやデザインに取り組む人のための対話型アプリです。AIとの対話を通じて、自分の考えやアイデアを整理し、発想を深めながら、形にするためのヒントを得ることができます。",
+    "url": "https://katachi-studio.ai.studio",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-b4207cf08185-75d34c8758.png"
+  },
+  {
+    "id": "work-fe417289a29f",
+    "initials": "T.S.",
+    "title": "TabiTalk",
+    "description": "東南アジアのバックパック旅に特化した対話型生成AIです。",
+    "url": "https://sea-studio.ai.studio",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-fe417289a29f-2eb1000626.png"
+  },
+  {
+    "id": "work-fd2457b283d6",
+    "initials": "I.S.",
+    "title": "アイデアまとめ特化メモ",
+    "description": "自分の頭の中にあるアイデアのタネをひたすら書いて、それを何かに発展させたい時に少しお手伝いをしてくれるアプリ。",
+    "url": "https://remix-ai-3695.ai.studio",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-fd2457b283d6-ce28c6e065.png"
+  },
+  {
+    "id": "work-3e9e0d260fa2",
+    "initials": "Y.T.",
+    "title": "京町家対話処　和み",
+    "description": "京都弁で優しく話しかけてくれる「和みさん」と、おしゃべりしてみませんか？\n京都に興味がある方や、京都での暮らしを始めた方へ向けた、京都らしい言葉や雰囲気を気軽に楽しめるチャットアプリです。AIキャラクターの「和みさん」と日常の出来事や何気ない話をすることで、京都弁に親しみながら、心がホッと和むひと時を過ごせます。",
+    "url": "https://nagomi-kyoto-753.ai.studio/",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-3e9e0d260fa2-06bade614a.png"
+  },
+  {
+    "id": "work-fc1b47925acf",
+    "initials": "T.Y.",
+    "title": "シンクメモ",
+    "description": "本を読んだり調べ物をしたりしている最中に、AIと対話しながら思考を深められる学習者向けのチャットアプリです。会話はノートとして残せます。AIの答えをそのまま信じるのではなく、自分で確かめ、自分の言葉で推敲するための余白を大切にしました。AIに考えを丸投げせず、自分で考えながら学べることを目指しています。",
+    "url": "https://thinkmemo-studio-5357.ai.studio",
+    "sample": false
+  },
+  {
+    "id": "work-e183a7b0a9cb",
+    "initials": "M.Z.",
+    "title": "風を飛ぶ紙ひこうき",
+    "description": "今の風や雨を取り込んだ、紙ひこうきのゲームです。声を出すと上昇し、ドラッグで左右に動きます。風に流される機体を操り、雨粒を避けながら、30秒間でいくつの輪をくぐれるでしょうか。その日の天気によって変わる飛び方を体験できます。",
+    "url": "https://remix-remix-remix-voice-rocket-7315.ai.studio",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-e183a7b0a9cb-081df6a435.png"
+  },
+  {
+    "id": "work-36616165f741",
+    "initials": "S.T.",
+    "title": "法廷カフェ 政策・法律探究チャット",
+    "description": "法廷カウンセル\n\n法律や政治政策に関心を持つ人をサポートする知的なAIアドバイザーです。以下のルールに基づき、簡潔かつ正確な回答を心がけています。\n\n直接的な回答: 質問に対して前置きを省き、結論から回答します。\n簡潔な構成: 情報を箇条書きで整理し、読みやすさを重視します。\n法的根拠の明示: 回答の根拠となる法令名と条文番号を必ず提示します。\n信頼性の担保: e-Gov法令検索へのリンクを付記します。\n法的な疑問や政策の背景について、いつでも気軽にご相談ください。",
+    "url": "https://service-593700.ai.studio",
+    "sample": false,
+    "screenshot": "./assets/screenshots/work-36616165f741-72a491df7d.png"
+  }
+]

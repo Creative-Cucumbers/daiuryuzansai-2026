@@ -1,11 +1,94 @@
 "use strict";
 
-const works = window.EXHIBITION_WORKS || [];
+let works = [];
 const grid = document.querySelector("#works-grid");
 const count = document.querySelector("#work-count");
 const dialog = document.querySelector("#work-dialog");
 const visuals = new Set(["lime", "lilac", "orange", "pink", "blue", "yellow"]);
 let lastTrigger;
+const rotationDelay = 60_000;
+const rotationDuration = 600;
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const activePointers = new Set();
+let rotationTimer;
+let rotationAnimations = [];
+let keyboardNavigation = false;
+
+function finishRotation() {
+  rotationAnimations.forEach((animation) => animation.cancel());
+  rotationAnimations = [];
+}
+
+function scheduleRotation() {
+  window.clearTimeout(rotationTimer);
+  rotationTimer = window.setTimeout(rotateWorks, rotationDelay);
+}
+
+function rotateWorks() {
+  // Start a fresh idle period even when a pause condition prevents this turn.
+  scheduleRotation();
+  if (document.hidden || dialog.open || activePointers.size
+      || (keyboardNavigation && grid.contains(document.activeElement))) return;
+  const cards = [...grid.querySelectorAll(".work-card")];
+  if (!cards.length) return;
+  const firstRow = cards[0].getBoundingClientRect();
+  if (firstRow.top < 0 || firstRow.top >= window.innerHeight) return;
+  const columns = getComputedStyle(grid).gridTemplateColumns.split(" ").length;
+  if (cards.length <= columns) return;
+
+  finishRotation();
+  const positions = cards.map((card) => card.getBoundingClientRect());
+  // Move existing nodes so their numbers, event handlers and identity stay intact.
+  cards.slice(0, columns).forEach((card) => grid.append(card));
+  if (reducedMotion.matches) return;
+  rotationAnimations = cards.map((card, index) => {
+    const after = card.getBoundingClientRect();
+    const before = positions[index];
+    // The outgoing row fades in at the end rather than crossing the whole grid.
+    const frames = index < columns
+      ? [{ opacity: 0 }, { opacity: 1 }]
+      : [{ transform: `translate(${before.left - after.left}px, ${before.top - after.top}px)` },
+        { transform: "translate(0, 0)" }];
+    return card.animate(frames, {
+      duration: rotationDuration,
+      easing: "cubic-bezier(.22, 1, .36, 1)",
+    });
+  });
+}
+
+function recordActivity() {
+  finishRotation();
+  scheduleRotation();
+}
+
+document.addEventListener("pointerdown", (event) => {
+  keyboardNavigation = false;
+  activePointers.add(event.pointerId);
+  recordActivity();
+}, { passive: true });
+function releasePointer(event) {
+  activePointers.delete(event.pointerId);
+  recordActivity();
+}
+document.addEventListener("pointerup", releasePointer, { passive: true });
+document.addEventListener("pointercancel", releasePointer, { passive: true });
+document.addEventListener("keydown", () => {
+  keyboardNavigation = true;
+  recordActivity();
+});
+["pointermove", "click", "wheel", "scroll", "focusin", "focusout"].forEach((type) => {
+  document.addEventListener(type, recordActivity, { passive: true, capture: true });
+});
+window.addEventListener("resize", recordActivity);
+window.addEventListener("blur", () => {
+  activePointers.clear();
+  recordActivity();
+});
+document.addEventListener("visibilitychange", () => {
+  activePointers.clear();
+  recordActivity();
+});
+reducedMotion.addEventListener("change", finishRotation);
 
 function makeElement(tag, className, text) {
   const element = document.createElement(tag);
@@ -15,7 +98,9 @@ function makeElement(tag, className, text) {
 }
 
 function visualName(work) {
-  return visuals.has(work.visual) ? work.visual : "lime";
+  if (visuals.has(work.visual)) return work.visual;
+  const index = Number.parseInt(work.id?.slice(-2), 16) % visuals.size;
+  return [...visuals][index] || "lime";
 }
 
 function makeArtwork(work) {
@@ -42,22 +127,22 @@ function makeArtwork(work) {
 
 function renderWorks() {
   const fragment = document.createDocumentFragment();
-  works.forEach((work) => {
+  works.forEach((work, index) => {
     const article = makeElement("article", "work-card");
     const button = makeElement("button", "work-open");
     button.type = "button";
     button.setAttribute("aria-haspopup", "dialog");
     button.setAttribute("aria-label", `${work.title}の作品紹介を見る`);
     const art = makeArtwork(work);
-    const number = String(works.indexOf(work) + 1).padStart(2, "0");
+    const number = String(index + 1).padStart(2, "0");
     art.append(makeElement("span", "work-number", `NO. ${number}`));
     if (work.sample) art.append(makeElement("span", "sample-label", "SAMPLE"));
     const body = makeElement("div", "work-body");
-    body.append(makeElement("span", "work-category", work.category));
+    body.append(makeElement("span", "work-category", work.category || "学生作品"));
     const heading = makeElement("div", "work-heading");
     heading.append(makeElement("h3", "", work.title), makeElement("span", "work-arrow", "↗"));
-    body.append(heading, makeElement("p", "work-tagline", work.tagline));
-    body.append(makeElement("p", "work-author", work.author));
+    body.append(heading, makeElement("p", "work-tagline", work.tagline || work.description));
+    body.append(makeElement("p", "work-author", work.initials || work.author));
     button.append(art, body);
     button.addEventListener("click", () => openWork(work, button));
     article.append(button);
@@ -66,6 +151,7 @@ function renderWorks() {
   grid.replaceChildren(fragment);
   if (!works.length) grid.append(makeElement("p", "empty-state", "作品は準備中です。"));
   count.textContent = `${String(works.length).padStart(2, "0")} WORKS`;
+  scheduleRotation();
 }
 
 function publicUrl(value) {
@@ -78,12 +164,14 @@ function publicUrl(value) {
 }
 
 function openWork(work, trigger) {
+  recordActivity();
   lastTrigger = trigger;
   document.querySelector("#dialog-title").textContent = work.title;
-  document.querySelector("#dialog-category").textContent = `${work.category} / ${work.sample ? "サンプル作品" : "学生作品"}`;
+  document.querySelector("#dialog-category").textContent = work.sample ? "サンプル作品" : (work.category || "学生作品");
   document.querySelector("#dialog-description").textContent = work.description;
   document.querySelector("#dialog-prompt").textContent = `「${work.prompt}」`;
-  document.querySelector("#dialog-credit").textContent = work.author;
+  document.querySelector(".prompt-box").hidden = !work.prompt;
+  document.querySelector("#dialog-credit").textContent = work.initials || work.author;
   document.querySelector("#dialog-art").replaceChildren(makeArtwork(work));
   const link = document.querySelector("#dialog-link");
   const unavailable = document.querySelector("#dialog-unavailable");
@@ -91,7 +179,6 @@ function openWork(work, trigger) {
   link.hidden = work.sample || !url;
   link.removeAttribute("href");
   if (!link.hidden) link.href = url;
-  document.querySelector("#dialog-api-notice").hidden = link.hidden;
   unavailable.hidden = !link.hidden;
   unavailable.textContent = work.sample
     ? "展示準備中のサンプルです。実際のチャットボットには接続しません。"
@@ -109,6 +196,25 @@ dialog.addEventListener("click", (event) => {
 dialog.addEventListener("close", () => {
   document.body.classList.remove("dialog-is-open");
   lastTrigger?.focus();
+  scheduleRotation();
 });
 
-renderWorks();
+async function loadWorks() {
+  count.textContent = "読み込み中…";
+  try {
+    const response = await fetch("./data/works.json", { cache: "no-cache" });
+    if (!response.ok) throw new Error(`作品データを読み込めません (${response.status})`);
+    const data = await response.json();
+    if (!Array.isArray(data)) throw new Error("作品データの形式が正しくありません");
+    works = data;
+    renderWorks();
+  } catch (error) {
+    console.error(error);
+    count.textContent = "";
+    const message = makeElement("p", "empty-state", "作品一覧を読み込めませんでした。再読み込みしてください。");
+    message.setAttribute("role", "alert");
+    grid.replaceChildren(message);
+  }
+}
+
+loadWorks();
