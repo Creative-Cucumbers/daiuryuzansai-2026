@@ -104,9 +104,9 @@ function visualName(work) {
 }
 
 function makeArtwork(work) {
-  const art = makeElement("div", `work-art art-${visualName(work)}`);
+  const art = makeElement("span", `work-art art-${visualName(work)}`);
   art.setAttribute("aria-hidden", "true");
-  const character = makeElement("div", "art-character");
+  const character = makeElement("span", "art-character");
   character.append(makeElement("span", "character-symbol", work.symbol || "✳"));
   character.append(makeElement("span", "character-eyes"));
   art.append(character, makeElement("span", "art-label", "A CONVERSATION PIECE"));
@@ -125,6 +125,19 @@ function makeArtwork(work) {
   return art;
 }
 
+function makeAppPreview(work) {
+  const art = makeArtwork(work);
+  const url = publicUrl(work.url);
+  if (work.sample || !url) return art;
+  const link = makeElement("a", "work-preview");
+  link.href = url;
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.setAttribute("aria-label", `${work.title}を開く（新しいタブ）`);
+  link.append(art);
+  return link;
+}
+
 function renderWorks() {
   const fragment = document.createDocumentFragment();
   works.forEach((work, index) => {
@@ -136,16 +149,20 @@ function renderWorks() {
     const art = makeArtwork(work);
     const number = String(index + 1).padStart(2, "0");
     art.append(makeElement("span", "work-number", `NO. ${number}`));
+    art.append(makeElement("span", "work-initials", work.initials || work.author));
     if (work.sample) art.append(makeElement("span", "sample-label", "SAMPLE"));
-    const body = makeElement("div", "work-body");
-    body.append(makeElement("span", "work-category", work.category || "学生作品"));
-    const heading = makeElement("div", "work-heading");
-    heading.append(makeElement("h3", "", work.title), makeElement("span", "work-arrow", "↗"));
-    body.append(heading, makeElement("p", "work-tagline", work.tagline || work.description));
-    body.append(makeElement("p", "work-author", work.initials || work.author));
+    const body = makeElement("span", "work-body");
+    const heading = makeElement("span", "work-heading");
+    const icon = makeElement("span", "work-arrow", "＋");
+    icon.setAttribute("aria-hidden", "true");
+    heading.append(makeElement("span", "work-name", work.title), icon);
+    body.append(heading);
+    body.append(makeElement("span", "sr-only", `制作者 ${work.initials || work.author || ""}`));
     button.append(art, body);
     button.addEventListener("click", () => openWork(work, button));
-    article.append(button);
+    const cardHeading = makeElement("h3", "work-card-heading");
+    cardHeading.append(button);
+    article.append(cardHeading);
     fragment.append(article);
   });
   grid.replaceChildren(fragment);
@@ -172,7 +189,7 @@ function openWork(work, trigger) {
   document.querySelector("#dialog-prompt").textContent = `「${work.prompt}」`;
   document.querySelector(".prompt-box").hidden = !work.prompt;
   document.querySelector("#dialog-credit").textContent = work.initials || work.author;
-  document.querySelector("#dialog-art").replaceChildren(makeArtwork(work));
+  document.querySelector("#dialog-art").replaceChildren(makeAppPreview(work));
   const link = document.querySelector("#dialog-link");
   const unavailable = document.querySelector("#dialog-unavailable");
   const url = publicUrl(work.url);

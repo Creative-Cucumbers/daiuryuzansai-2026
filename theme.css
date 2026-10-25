@@ -15,6 +15,9 @@
   --card-radius: 8px;
   --card-gap: 15px;
   --card-art-height: 110px;
+  --header-title-size: clamp(24px, 4vw, 32px);
+  --header-subtitle-size: 14px;
+  --header-event-size: 12px;
   --art-lime-bg: #d9ead0;
   --art-lime-character: #a6d7a3;
   --art-lilac-bg: #e7dbea;
