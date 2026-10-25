@@ -1,110 +1,105 @@
-# AIチャットアプリ — 大瓜生山祭2026
+# AIチャットアプリ｜大瓜生山祭2026
 
-京都芸術大学・プログラミング演習の学生作品を紹介する静的サイトです。GitHub Pagesで公開できます。ページのビルドやAPIキーは不要です。
+京都芸術大学「プログラミング演習」の学生作品を紹介する、**学園祭に合わせた期間限定の展示ページ**です。
 
-## データの流れ・置き場所
+**[展示ページを開く](https://creative-cucumbers.github.io/daiuryuzansai-2026/)**
 
-```text
-input/*.xlsx（またはルートのExcel。Git対象外）
-    ↓ python3 scripts/import_works.py
-data/works.json（公開用：イニシャル・作品名・説明・URL・画像パス）
-    ↓ script.js が fetch で読む
-index.html の作品一覧・詳細画面
+## しくみ
 
-data/works.json のURL
-    ↓ python3 scripts/capture_works.py
-.local/captures/*.png（確認用画像。Git対象外）
-    ↓ 目視確認後 --approve で掲載
-assets/screenshots/*.png（公開するキャプチャ）
+Excelから作品情報を取り込み、確認済みのキャプチャと一緒に表示します。
+
+```mermaid
+flowchart LR
+  excel["Excel（非公開）"] -->|取り込み| data["作品データ・JSON"]
+  data --> site["展示ページ"]
+  data -->|URLから撮影| draft["確認用画像（非公開）"]
+  draft -->|確認して掲載| images["公開用画像"]
+  images --> site
 ```
 
-| ファイル | 用途 | Gitに含める |
-| --- | --- | --- |
-| `input/*.xlsx` / ルートの `*.xlsx` | フォーム回答の元データ | いいえ |
-| `scripts/import_works.py` | Excel抽出・重複整理 | はい |
-| `scripts/capture_works.py` | キャプチャ・確認後の掲載 | はい |
-| `data/works.json` | ページが読む生成データ | はい |
-| `assets/screenshots/` | 掲載する画像 | はい |
-| `.local/import-report.json` | 採用行・重複行・入力の注意点 | いいえ |
-| `.local/capture-report.json` | 取得結果・確認待ち・表示内容 | いいえ |
-| `.local/capture-report.md` | キャプチャ状況の見やすい一覧 | いいえ |
-| `.local/captures/` | 掲載前の画像 | いいえ |
-| `index.html` / `script.js` | 本文・描画・詳細ダイアログ | はい |
-| `theme.css` / `styles.css` | デザイン変数・レイアウト | はい |
+公開する制作者情報は**イニシャルのみ**です。元Excel・氏名全文・作業記録はGitに含めません。
 
-## Excelを更新する
+## 手元で見る
 
-Python 3 の標準ライブラリだけで取り込めます。Excelの最新エクスポートを `input/` に置き、以前のファイルと差し替えます。現在のようにルートに置いても構いません。Excelの一時ファイル `~$*.xlsx` は無視します。
-
-```sh
-python3 scripts/import_works.py --check
-python3 scripts/import_works.py
-```
-
-`--check` は確認のみで、公開データを更新しません。Excelが複数ある場合はファイルを明示してください。
-
-```sh
-python3 scripts/import_works.py "input/回答.xlsx"
-python3 scripts/import_works.py "input/回答.xlsx" --sheet "フォームの回答 1"
-```
-
-列の順番は自由です。次の見出しで始まる列を読みます。見出しの全角・半角コロン、余分な空白は正規化します。
-
-- `タイムスタンプ`
-- `氏名：ローマ字` → 入力順で各単語の頭文字を連結（架空例：`Example Person` → `E.P.`）
-- `作品名`
-- `作品の説明文`
-- `作品のURL`
-
-漢字氏名・ローマ字氏名の全文・学年は公開JSONに書き出しません。キーワードからカテゴリや説明を創作することもしません。一覧カードは画像・作品名・右上のイニシャルだけを表示し、カードの画像・作品名を押すと詳細画面で説明の全文を表示します。説明文は原文・改行を維持します。詳細画面のキャプチャと「アプリを開く」を押すと、公開アプリを新しいタブで直接開きます。サンプル・URL未設定の作品はリンクしません。
-
-**重複ルールは「1人1作品・最新回答を採用」です。** ローマ字氏名の大文字小文字、全角半角、連続空白を正規化して同じ人を判定します。イニシャルだけでは判定しません。作品名やURLを直して再送信した回答もまとめます。タイムスタンプが同じなら、後のシート・後の行を優先します。過去のURLや説明で空欄を補完せず、最新回答の内容に揃えます。採用・除外行と変更された項目は `.local/import-report.json` で確認できます。
-
-同姓同名、氏名の綴り・順番の変更、1人が複数作品を出す運用になった場合は、この判定ルールの変更が必要です。作品IDは正規化したローマ字氏名のSHA-256ハッシュから生成し、氏名の文字列自体は保存しません。行の追加・並べ替え・タイトル・URL修正では変わりません。氏名の表記を変えるとIDも変わります。
-
-URL未入力の作品も表示し、外部リンクは隠します。HTTPや不正なURL、必須項目不足、読めないタイムスタンプがある場合は取り込みを中止し、既存の公開JSONを維持します。フォームの文字数目安を超えた作品は、レポートに注意を出して全文を残します。
-
-`ai.studio/apps/…` と `aistudio.google.com/apps/…` は、取り込み時に `https://aistudio.google.com/apps/…?showAssistant=true&showPreview=true&fullscreenApplet=true` の形式に揃えます。ほかのクエリとフラグメントは維持します。公開済みの `*.ai.studio` アプリのURLには追加しません。
-
-## キャプチャを更新する
-
-キャプチャ時のみ `playwright-cli` とChromeが必要です。ページを見るだけなら不要です。未導入の場合は次を実行してください。
-
-```sh
-npm install -g @playwright/cli
-```
-
-```sh
-python3 scripts/capture_works.py
-```
-
-1280×900で各URLの初期画面を取得します。ログインやフォーム送信などの操作はしません。結果は `.local/capture-report.json`、画像は `.local/captures/` に保存します。取得済みの確認待ち画像と掲載済み画像はスキップします。
-
-**画像を開いて、アプリが表示されていること、氏名・アカウント情報が写っていないことを確認してから掲載します。** ログイン画面、エラー画面、読み込み途中は掲載せず、あとで手動で対応してください。
-
-```sh
-# IDは data/works.json / .local/capture-report.json で確認
-python3 scripts/capture_works.py --approve work-xxxxxxxxxxxx
-
-# 1作品だけ再撮影（--id は複数指定可）
-python3 scripts/capture_works.py --id work-xxxxxxxxxxxx --force
-```
-
-掲載すると `assets/screenshots/` に画像をコピーし、`data/works.json` の画像パスも更新します。ファイル名には作品IDとURLのハッシュを使うため、URL修正後に以前の画面を誤表示しません。新しいURLで再撮影してください。同じURLでアプリの見た目が変わった場合は `--force` で撮り直して再掲載します。
-
-手動で取得した画像を使う場合は、`scripts/import_works.py` の `screenshot_path(work)` と同じファイル名で `assets/screenshots/` に保存し、Excel取り込みを再実行すると反映されます。画像がない作品には仮のイラストを表示します。
-
-## ローカルで確認する
+このフォルダで次を実行し、<http://127.0.0.1:8000> を開きます。Python 3 があれば、ビルドやライブラリのインストールは不要です。
 
 ```sh
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-<http://127.0.0.1:8000> を開きます。JSONを読むため、HTMLの直接ダブルクリックではなくHTTPサーバーを使います。Pythonの簡易サーバーは元Excelや `.local/` も配信できるので、ローカル確認専用とし、そのまま外部へ公開しないでください。
+**HTMLのダブルクリックでは作品データを読めません。** 簡易サーバーはローカル確認専用です。
 
-- iPad `1024×768`、`768×1024` で4列、スマートフォン幅 `390`、`320` で2列・横スクロールなし。
-- 全作品数、イニシャル、説明全文、外部リンクを確認。
-- 詳細ダイアログの開閉、Escape、元のカードへのフォーカス復帰を確認。
+## 作品を更新する
+
+1. `input/` またはルートのExcelを最新のものに差し替える。
+2. 次を実行し、ブラウザを再読み込みする。
+
+```sh
+python3 scripts/import_works.py
+```
+
+同じローマ字氏名の回答は、**最新の1件を採用**します。作品情報の修正はExcelで行い、生成されたJSONは直接編集しません。
+
+<details>
+<summary>取り込みの詳しい仕様・オプション</summary>
+
+- 読む列：タイムスタンプ、氏名：ローマ字、作品名、作品の説明文、作品のURL。列の順番は自由です。
+- イニシャルは入力順の頭文字から作ります（架空例：`Example Person` → `E.P.`）。
+- 氏名の大文字小文字・全角半角・連続空白は正規化します。同時刻の回答は後の行・シートを優先します。
+- 1人1作品を想定しています。同姓同名や複数作品の提出には判定ルールの変更が必要です。
+- URL未入力ならリンクを非表示にします。不正なURLや必須項目不足があれば、既存データを維持して取り込みを中止します。
+- AI Studioの `/apps/…` リンクは全画面表示用のパラメータを自動で付けます。
+- 作品IDは正規化したローマ字氏名のハッシュから生成します。タイトルやURLの変更では変わりません。
+- 採用・重複の記録：`.local/import-report.json`。
+
+```sh
+python3 scripts/import_works.py --check               # 確認のみ
+python3 scripts/import_works.py "input/回答.xlsx"     # ファイルを指定
+```
+
+</details>
+
+## キャプチャを更新する
+
+取得 → 画像を確認 → 掲載、の順で進めます。撮影サイズは **1280×900** です。
+
+```sh
+python3 scripts/capture_works.py
+python3 scripts/capture_works.py --approve work-xxxxxxxxxxxx
+```
+
+画像は `.local/captures/`、状況一覧は `.local/capture-report.md` に保存します。作品IDもこの一覧で確認できます。
+
+**ログイン画面や氏名・アカウント情報が写っていないか確認してから掲載します。** 表示できない作品は保留にできます。
+
+<details>
+<summary>撮影ツールの準備・撮り直し</summary>
+
+自動撮影にはChromeと `playwright-cli` が必要です。未導入なら `npm install -g @playwright/cli` で準備します。
+
+```sh
+python3 scripts/capture_works.py --id work-xxxxxxxxxxxx --force
+```
+
+掲載すると `assets/screenshots/` にコピーされ、公開JSONも更新されます。URLが変わると古い画像は使われなくなるため、再撮影してください。手動画像は `scripts/import_works.py` の `screenshot_path(work)` に合わせて保存し、再取り込みすると反映できます。
+
+</details>
+
+## ファイルの置き場所
+
+| 場所 | 内容 | 公開 |
+| --- | --- | --- |
+| `input/*.xlsx`・ルートのExcel | フォーム回答の元データ | しない |
+| `.local/` | 確認用画像・作業記録・受領した元画像 | しない |
+| `data/works.json` | イニシャル・作品名・説明・URL・画像パス | する |
+| `assets/screenshots/` | 掲載するキャプチャ | する |
+| `scripts/` | Excel取り込み・キャプチャ用スクリプト | する |
+| `index.html`・`script.js` | ページ本文・表示と操作 | する |
+| `theme.css`・`styles.css` | 配色や文字サイズ・レイアウト | する |
+
+## 公開する
+
+`main` にcommit・pushすると、GitHub Pagesが自動更新します。公開元は **main / リポジトリ直下**です。`.nojekyll` と相対パスを維持してください。
 
 ```sh
 node --check script.js
@@ -113,14 +108,12 @@ git diff --check
 git ls-files '*.xlsx' '.local/*'  # 何も表示されないこと
 ```
 
-## デザインと公開
+<details>
+<summary>ページの動作・表示確認</summary>
 
-作品の初期表示はJSONの登録順です。一覧の先頭が画面内にあり、1分間操作がなければ、先頭の1行（iPadは4作品・スマートフォンは2作品）を最後尾へ送ります。残りのカードは約0.6秒で上へ移動し、最後尾に回ったカードはその場でフェード表示します。作品番号は登録順の固定番号です。
+- カードを押すと作品紹介を拡大表示。拡大後のキャプチャ・ボタンからアプリを開きます。
+- 初期表示は登録順。無操作1分で先頭の1行を末尾へ送ります。操作中・詳細表示中・一覧先頭が画面外の場合などは停止します。
+- 作品番号は固定、既読や並び順は保存しません。「視差効果を減らす」設定では動きを省略します。
+- iPad `1024×768`・`768×1024` は4列、スマホ幅 `390`・`320` は2列。横スクロール・詳細の開閉・Escape・フォーカス復帰を確認します。
 
-タッチ・クリック・マウス移動・キー操作・スクロール後は、再び1分待ちます。詳細表示中、指を置いている間、カードにキーボードフォーカスがある間、一覧の先頭が画面外の場合、ページが非表示の場合は移動しません。詳細を閉じてからも1分待ちます。端末の「視差効果を減らす」が有効な場合は、アニメーションを省略して順番だけ更新します。既読情報や並び順は保存せず、再読み込みで登録順に戻ります。
-
-色・書体・余白などは `theme.css`、配置は `styles.css`、ページ本文は `index.html` で変更します。`data/works.json` は生成物なので、作品情報の修正はExcelで行って再取り込みしてください。
-
-GitHub Pagesの **Settings → Pages → Deploy from a branch → main / (root)** で公開します。`main` の更新は自動公開されます。`.nojekyll` と相対パスを維持してください。元Excelと `.local/` は `.gitignore` で除外し、公開用JSONと確認済み画像だけを含めます。`.gitignore` は既に追跡済みのファイルには効かないため、公開前に上記の `git ls-files` でも確認してください。
-
-日程（2026年10月31日・11月1日）は[学園祭公式サイト](https://www.kyoto-art.ac.jp/kuafes/2026/)を参照しています。
+</details>

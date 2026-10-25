@@ -18,6 +18,10 @@
   --header-title-size: clamp(24px, 4vw, 32px);
   --header-subtitle-size: 14px;
   --header-event-size: 12px;
+  --header-padding-top: 8px;
+  --header-padding-bottom: 10px;
+  --notice-padding-y: 6px;
+  --footer-padding-y: 10px;
   --art-lime-bg: #d9ead0;
   --art-lime-character: #a6d7a3;
   --art-lilac-bg: #e7dbea;
